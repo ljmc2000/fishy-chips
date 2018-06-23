@@ -9,13 +9,15 @@
 		goback("Please login","/");
 
 	$myconnection=database_connect();
-	$username=$myconnection->real_escape_string($_COOKIE['login_cookie']);
+	$username=$_COOKIE['login_cookie'];
 
 	echo "<main>";
 
 	//past orders
-	$sqlcode="select * from orders where username='$username';";
-	$result=$myconnection->query($sqlcode);
+	$sqlcode=$myconnection->prepare("select * from orders where username=?");
+	$sqlcode->bind_param('s', $username);
+	$sqlcode->execute();
+	$result=$sqlcode->get_result();
 
 	echo "<table align=\"left\"><tr>";
 	echo "<th>Past orders</th></tr>";
@@ -61,8 +63,10 @@
 	echo "</form>";
 
 	//get default values for payment info form
-	$sqlcode="select * from payinfo where username='$username'";
-	$result=$myconnection->query($sqlcode);
+	$sqlcode=$myconnection->prepare("select * from payinfo where username=?");
+	$sqlcode->bind_param('s', $username);
+	$sqlcode->execute();
+	$result=$sqlcode->get_result();
 	$row=$result->fetch_assoc();
 	$cardnumber=$row["cardnumber"];
 	$expiremonth=$row["expiremonth"];
@@ -103,8 +107,10 @@
 
 
 	//get default values for delivery address
-	$sqlcode="select * from address where username='$username'";
-	$result=$myconnection->query($sqlcode);
+	$sqlcode=$myconnection->prepare("select * from address where username=?");
+	$sqlcode->bind_param('s', $username);
+	$sqlcode->execute();
+	$result=$sqlcode->get_result();
 	$row=$result->fetch_assoc();
 	$line1=$row["line1"];
 	$line2=$row["line2"];

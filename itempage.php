@@ -10,9 +10,11 @@
 
 	//get contents of food table from database
 	$myconnection=database_connect();
-	$menunumber=$myconnection->real_escape_string($_GET["menunumber"]);
-	$sqlcode="select * from food where menunumber=$menunumber;";
-	$result=$myconnection->query($sqlcode);
+	$menunumber=$_GET["menunumber"];
+	$sqlcode=$myconnection->prepare('select * from food where menunumber = ?');
+	$sqlcode->bind_param('i', $menunumber);
+	$sqlcode->execute();
+	$result=$sqlcode->get_result();
 	$row=$result->fetch_assoc();
 
 	echo "<img align=\"left\" margin=\"50\" width=\"500\" src=\"images/",$row["picture"],"\">";

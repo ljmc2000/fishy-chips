@@ -5,11 +5,13 @@
 		goback("Please login","/");
 
 	$myconnection=database_connect();
-	$username=$myconnection->real_escape_string($_COOKIE['login_cookie']);
+	$username=$_COOKIE['login_cookie'];
 
 	//check for outstanding orders
-	$sqlcode="select count(orderno) from valid_orders where (fulfilled=0 and username='$username')";
-	$result=$myconnection->query($sqlcode);
+	$sqlcode=$myconnection->prepare("select count(orderno) from valid_orders where (fulfilled=0 and username=?)");
+	$sqlcode->bind_param('s', $username);
+	$sqlcode->execute();
+	$result=$sqlcode->get_result();
 	$row=$result->fetch_assoc();
 
 	if($row["count(orderno)"] > 0)
@@ -20,15 +22,17 @@
 
 	if($_GET[field]=='address')
 	{
-		$sqlcode="delete from address where username='$username'";
-		$myconnection->query($sqlcode);
+		$sqlcode=$myconnection->prepare("delete from address where username = ? ");
+		$sqlcode->bind_param('s', $username);
+		$sqlcode->execute();
 		goback("address has been deleted",$_SERVER['HTTP_REFERER']);
 	}
 
 	if($_GET[field]=='payinfo')
 	{
-		$sqlcode="delete from payinfo where username='$username'";
-		$myconnection->query($sqlcode);
+		$sqlcode=$myconnection->prepare("delete from payinfo where username = ? ");
+		$sqlcode->bind_param('s', $username);
+		$sqlcode->execute();
 		goback("payment information has been deleted",$_SERVER['HTTP_REFERER']);
 	}
 ?>

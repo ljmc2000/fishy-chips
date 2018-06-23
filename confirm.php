@@ -6,7 +6,7 @@
 		goback("Please login","/");
 
 	$myconnection=database_connect();
-	$username=$myconnection->real_escape_string($_COOKIE["login_cookie"]);
+	$username=$_COOKIE["login_cookie"];
 
 	//get list of valid item ids
 	$sqlcode="select menunumber,price from food;";
@@ -27,8 +27,9 @@
 		$total=$total+($row["price"] * $_SESSION[$food]);
 	}
 
-	$sqlcode="insert into orders (username,items_ordered,total,fulfilled) values ('$username','$items_ordered',$total,0);";
-	mysqli_query($myconnection,$sqlcode);
+	$sqlcode=$myconnection->prepare("insert into orders (username,items_ordered,total,fulfilled) values (?,?,?,0);");
+	$sqlcode->bind_param('ssd', $username,$items_ordered,$total);
+	$sqlcode->execute();
 	$myconnection->close();
 
 	session_destroy();

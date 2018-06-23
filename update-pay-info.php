@@ -4,11 +4,11 @@
 	if(!isset($_COOKIE["login_cookie"]))
 		goback("Please login","/");
 
-	$username=$myconnection->real_escape_string($_COOKIE['login_cookie']);
-	$cardnum=$myconnection->real_escape_string($_POST['cardnum']);
-	$expiremonth=$myconnection->real_escape_string($_POST['expiremonth']);
-	$expireyear=$myconnection->real_escape_string($_POST['expireyear']);
-	$ccv=$myconnection->real_escape_string($_POST['ccv']);
+	$username=$_COOKIE['login_cookie'];
+	$cardnum=$_POST['cardnum'];
+	$expiremonth=$_POST['expiremonth'];
+	$expireyear=$_POST['expireyear'];
+	$ccv=$_POST['ccv'];
 
 	if(!is_numeric($cardnum) || strlen($cardnum)<16)
 		goback("invalid card number","checkout.php");
@@ -24,10 +24,16 @@
 	if(!is_numeric($ccv) || $ccv<0)
 		goback("invalid ccv","checkout.php");
 
-	$sqlcode="delete from payinfo where username='$username';";
-	mysqli_query($myconnection,$sqlcode);
-	$sqlcode="insert into payinfo values('$username','$cardnum','$expiremonth',$expireyear,$ccv);";
-	mysqli_query($myconnection,$sqlcode);
+	//delete old payment information
+	$sqlcode=$myconnection->prepare("delete from payinfo where username=?");
+	$sqlcode->bind_param('s', $username);
+	$sqlcode->execute();
+
+	//insert new payment information
+	$sqlcode=$myconnection->prepare("insert into payinfo values(?,?,?,?,?)");
+	$sqlcode->bind_param('sssii',$username,$cardnum,$expiremonth,$expireyear,$ccv);
+	$sqlcode->execute();
+
 	$myconnection->close();
 	goback("success",$_SERVER['HTTP_REFERER']);
 ?>

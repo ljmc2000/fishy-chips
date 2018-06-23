@@ -9,9 +9,11 @@
 
 	//connect to database
 	$myconnection=database_connect();
-	$menunumber=$myconnection->real_escape_string($_GET["menunumber"]);
-	$sqlcode="select name,description,price from food where menunumber=$menunumber;";
-	$result=$myconnection->query($sqlcode);
+	$menunumber=$_GET["menunumber"];
+	$sqlcode=$myconnection->prepare("select name,description,price from food where menunumber=?");
+	$sqlcode->bind_param('i',$menunumber);
+	$sqlcode->execute();
+	$result=$sqlcode->get_result();
 	$row=$result->fetch_assoc();
 
 	//set the defaults of the form to the original

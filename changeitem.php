@@ -3,13 +3,14 @@
 	checkadmin();
 
 	$myconnection=database_connect();
-	$menunumber=$myconnection->real_escape_string($_GET["menunumber"]);
-	$name=$myconnection->real_escape_string($_POST["name"]);
-	$description=$myconnection->real_escape_string($_POST["description"]);
-	$price=$myconnection->real_escape_string($_POST["price"]);
+	$menunumber=$_GET["menunumber"];
+	$name=$_POST["name"];
+	$description=$_POST["description"];
+	$price=$_POST["price"];
 
-	$sqlcode="update food set name='$name', description='$description', price=$price where menunumber=$menunumber;";
-	mysqli_query($myconnection,$sqlcode);
+	$sqlcode=$myconnection->prepare("update food set name=?, description=?, price=? where menunumber=?");
+	$sqlcode->bind_param('ssdi', $name,$description,$price,$menunumber);
+	$sqlcode->execute();
 
 	goback("updated sucessfully","moditem.php?menunumber=$menunumber");
 ?>

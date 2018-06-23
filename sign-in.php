@@ -4,16 +4,18 @@
 
 	$myconnection=database_connect();
 
-	$username=$myconnection->real_escape_string($_POST['username']);
+	$username=$_POST['username'];
 	$password1=hash('sha256',$_POST['password1']);
 
 	//check they came from the sign-in.html or index page
 	if($username=='')
 		goback("access denied",$goto);
 
-	$sqlcode="select password from users where(username= BINARY '$username')";
-
-	$result=$myconnection->query($sqlcode);
+	//fetch password from database
+	$sqlcode=$myconnection->prepare("select password from users where(username= BINARY ?)");
+	$sqlcode->bind_param('s', $username);
+	$sqlcode->execute();
+	$result=$sqlcode->get_result();
 	$row=$result->fetch_assoc();
 	$password2=$row["password"];
 

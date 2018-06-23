@@ -9,7 +9,7 @@
 
 	$myconnection=database_connect();
 
-	$username=$myconnection->real_escape_string($_POST['username']);
+	$username=$_POST['username'];
 	$password=hash('sha256',$_POST['password1']);	//encrypt password
 
 
@@ -18,15 +18,18 @@
 		goback("access denied","/");
 
 	//check for pre existing user
-	$sqlcode="select username from users where (username like '$username');";
-	$result=$myconnection->query($sqlcode);
+	$sqlcode=$myconnection->prepare("select username from users where (username like ?)");
+	$sqlcode->bind_param('s', $username);
+	$sqlcode->execute();
+	$result=$sqlcode->get_result();
 
 	if($result->fetch_assoc()["username"])
 		goback("pre-existing user found","create-account.php");
 
 	//add user to database
-	$sqlcode="insert into users values('$username','$password')";
-	mysqli_query($myconnection,$sqlcode);
+	$sqlcode=$myconnection->prepare("insert into users values(?,?)");
+	$sqlcode->bind_param('ss',$username,$password);
+	$sqlcode->execute();
 	$myconnection->close();
 
 	goback("new user created","/");

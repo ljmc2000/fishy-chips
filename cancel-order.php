@@ -4,10 +4,10 @@
 		goback("Please login","/");
 
 	$myconnection=database_connect();
-	$username=$myconnection->real_escape_string($_COOKIE["login_cookie"]);
-	$orderno=$myconnection->real_escape_string($_GET["ordernumber"]);
-	$sqlcode="delete from orders where (orderno=$orderno and username='$username' and fulfilled=0)";
-	echo $sqlcode;
-	$myconnection->query($sqlcode);
+	$username=$_COOKIE["login_cookie"];
+	$orderno=$_GET["ordernumber"];
+	$sqlcode=$myconnection->prepare("delete from orders where (orderno=? and username=? and fulfilled=0)");
+	$sqlcode->bind_param('is', $orderno,$username);
+	$sqlcode->execute();
 	goback("order has been canceled",$_SERVER['HTTP_REFERER']);
 ?>
