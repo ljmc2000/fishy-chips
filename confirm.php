@@ -27,6 +27,12 @@
 		$total=$total+($row["price"] * $_SESSION[$food]);
 	}
 
+	if($items_ordered=='')
+	{
+		goback("please order something","/");
+		die();
+	}
+
 	$sqlcode=$myconnection->prepare("insert into orders (username,items_ordered,total,fulfilled) values (?,?,?,0);");
 	$sqlcode->bind_param('ssd', $username,$items_ordered,$total);
 	$sqlcode->execute();
