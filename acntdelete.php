@@ -8,9 +8,11 @@
 	$username=$myconnection->real_escape_string($_COOKIE['login_cookie']);
 
 	//check for outstanding orders
-	$sqlcode="select orderno from valid_orders where (fulfilled=0 and username='$username')";
+	$sqlcode="select count(orderno) from valid_orders where (fulfilled=0 and username='$username')";
 	$result=$myconnection->query($sqlcode);
-	if($results->num_rows !== 0)
+	$row=$result->fetch_assoc();
+
+	if($row["count(orderno)"] > 0)
 	{
 		goback("You may not delete account details with outstanding orders",$_SERVER['HTTP_REFERER']);
 		exit();
