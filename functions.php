@@ -33,9 +33,9 @@
 		if(!isset($_COOKIE["login_cookie"]))
 		{
 		echo	"<form style=\"margin-right:10%\" action=\"sign-in.php\" method=\"post\" align=\"right\">
-			username <input type=\"text\" name=\"username\" required>
-			password <input type=\"password\" name=\"password1\" required>
-			<br><a href=\"create-account.php\">register</a>
+			username <input type=\"text\" name=\"username\" required><br>
+			password <input type=\"password\" name=\"password1\" required><br>
+			<a href=\"create-account.php\"><button type=\"button\">register</button></a>
 			<input type=\"submit\" value=\"sign in\">
 			</form>";
 		}
@@ -51,7 +51,10 @@
 				echo	"<a href=\"view-books.php\">view books<br></a>";
 			}
 			else
-				echo	"<a href=\"checkout.php\"><img src=\"checkout.svg\" height=\"30\"></a>";	//checkout button
+			{
+				echo	"<a href=\"checkout.php\"><img src=\"checkout.svg\" height=\"30\"><br></a>";	//checkout button
+				echo	"<a href=\"manage-account.php\">manage account<br></a>";
+			}
 
 			echo	"<input type=\"submit\" value=\"sign out\">
 					</form>";	//sign out button

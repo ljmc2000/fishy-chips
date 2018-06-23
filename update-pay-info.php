@@ -26,6 +26,6 @@
 	mysqli_query($myconnection,$sqlcode);
 	$sqlcode="insert into payinfo values('$username','$cardnum','$expiremonth',$expireyear,$ccv);";
 	mysqli_query($myconnection,$sqlcode);
-	goback("success","checkout.php");
 	$myconnection->close();
+	goback("success",$_SERVER['HTTP_REFERER']);
 ?>

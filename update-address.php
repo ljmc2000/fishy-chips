@@ -15,6 +15,6 @@
 	mysqli_query($myconnection,$sqlcode);
 	echo $sqlcode;
 
-	goback("success","checkout.php");
+	goback("success",$_SERVER['HTTP_REFERER']);
 	$myconnection->close()
 ?>

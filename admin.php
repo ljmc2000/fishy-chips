@@ -6,6 +6,14 @@
 	show_header();
 ?>
 <main>
+<h2>Change admin password</h2>
+<form method="post" action="change-password.php">
+Old password <input type="password" name="oldpwd" required/><br>
+new password <input type="password" name="newpwd1" required><br>
+repeat password <input type="password" name="newpwd2" required><br>
+<input type="submit" value="change password" name="submit">
+</form>
+
 <h2>add a new menu item</h2>
 <form method="post" action="additem.php" enctype="multipart/form-data">
 Name <input type="textarea" name="name" maxlength="30" size="30" required><br>

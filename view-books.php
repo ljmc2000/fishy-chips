@@ -9,7 +9,7 @@
 	$myconnection=database_connect();
 
 	//todays profits
-	$sqlcode="select * from valid_orders where fulfilled=1 and placed > now()-INTERVAL 1 DAY";
+	$sqlcode="select * from valid_orders where fulfilled=1 and placed > now()-INTERVAL 1 DAY order by (orderno)";
 	$result=mysqli_query($myconnection,$sqlcode);
 	$total=0;
 	echo "<big><center>today</center></big>";
@@ -31,7 +31,7 @@
 	echo "<table><br>";
 
 	//this months profits
-	$sqlcode="select * from valid_orders where fulfilled=1 and placed > now()-INTERVAL 30 DAY";
+	$sqlcode="select * from valid_orders where fulfilled=1 and placed > now()-INTERVAL 30 DAY order by (orderno)";
 	$result=mysqli_query($myconnection,$sqlcode);
 	$total=0;
 	echo "<big><center>this month</center></big>";
@@ -53,7 +53,7 @@
 	echo "<table><br>";
 
 	//profits for all time
-	$sqlcode="select * from valid_orders where fulfilled=1";
+	$sqlcode="select * from valid_orders where (fulfilled=1) order by (orderno)";
 	$result=mysqli_query($myconnection,$sqlcode);
 	$total=0;
 	echo "<big><center>all time</center></big>";
