@@ -1,17 +1,15 @@
 <?php
-	function goback($message)
-	{
-		echo "<script>
-			alert(\"$message\");
-			window.history.go(-1);
-		</script>";
-		return;
-	}
+	include 'functions.php';
+	$goto='/';
 
-	$myconnection=mysqli_connect("localhost","webdev","phprocks","webdev");
+	$myconnection=database_connect();
 
-	$username=$_POST['username'];
+	$username=$myconnection->real_escape_string($_POST['username']);
 	$password1=hash('sha256',$_POST['password1']);
+
+	//check they came from the sign-in.html or index page
+	if($username=='')
+		goback("access denied","/");
 
 	$sqlcode="select password from users where(username='$username')";
 
@@ -27,15 +25,15 @@
 		$cookie_value = $username;
 		setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 
-		goback("login sucess");
+		goback("login sucess",$goto);
 	}
 	else if($password2=="")
 	{
-		goback("user not found: please register");
+		goback("user not found: please register",$goto);
 	}
 
 	else
 	{
-		goback("incorrect password");
+		goback("incorrect password",$goto);
 	}
 ?>

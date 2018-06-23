@@ -26,7 +26,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="168.28375"
+     inkscape:cx="122.09414"
      inkscape:cy="115.53288"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -54,14 +54,14 @@
      id="layer1"
      transform="translate(0,-247)">
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.04160452;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#ffff00;fill-rule:evenodd;stroke:#000000;stroke-width:2.04160452;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:0.41979522"
        d="M 1.4864821,272.42295 C 34.215341,242.03368 66.837548,231.03195 99.04623,295.20298 v -47.0018 C 67.820856,309.56585 34.781468,305.02721 1.4864821,272.42295 Z"
        id="path815"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.28866196px;line-height:100%;font-family:Z003;-inkscape-font-specification:Z003;letter-spacing:0.72574979px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.72574979px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.28866196px;line-height:100%;font-family:Z003;-inkscape-font-specification:Z003;letter-spacing:0.72574979px;word-spacing:0px;fill:#00fffe;fill-opacity:1;stroke:#000000;stroke-width:0.72574979px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
        x="17.369806"
        y="301.61407"
        id="text819"
@@ -70,11 +70,11 @@
          id="tspan817"
          x="17.369806"
          y="301.61407"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Z003;-inkscape-font-specification:Z003;stroke-width:0.72574979px">Fishy</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Z003;-inkscape-font-specification:Z003;stroke-width:0.72574979px;fill:#00fffe;fill-opacity:1;stroke:#000000;stroke-opacity:1;">Fishy</tspan><tspan
          sodipodi:role="line"
          x="17.369806"
          y="323.36752"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Z003;-inkscape-font-specification:Z003;stroke-width:0.72574979px"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Z003;-inkscape-font-specification:Z003;stroke-width:0.72574979px;fill:#00fffe;fill-opacity:1;stroke:#000000;stroke-opacity:1;"
          id="tspan821">Chips</tspan></text>
   </g>
 </svg>

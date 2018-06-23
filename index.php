@@ -1,37 +1,58 @@
-<html><body>
-<img src="logo.svg" align="left" height="60">
-<form action="sign-in.php" method="post" align="right">
-username <input type="text" name="username" required>
-password <input type="password" name="password1" required>
-<br><a href="sign-in.html">register</a>
-<input type="submit" value="sign in">
-</form>
+<?php session_start(); ?>
 
-<img src="checkout.svg" height="30" align="right"><br>
+<html><body>
+<link rel="stylesheet" href="style.css" />
 
 <?php
-	$myconnection=mysqli_connect("localhost","webdev","phprocks","webdev");
+	include 'functions.php';
+	show_header();
+
+	echo "<main>";
+
+	//get contents of food table from database
+	$myconnection=database_connect();
 
 	$sqlcode="select * from food;";
 	$result=$myconnection->query($sqlcode);
 
-	echo "<table>";
+	//print all foods in the food table to screen
+	echo "<table align=\"center\"><tr>";
 
+	$i=1;
 	while($row=$result->fetch_assoc())
 	{
-		echo "<tr>";
-		echo "<td><img src=\"images/",$row["picture"],"\"></td>";
+		echo "<td width=\"200\"><img width=\"200\" src=\"images/",$row["picture"],"\"></td>";
 
-		echo "<td>";
-		echo "<a href=\"itempage.php?menunumber=",$row["menunumber"],"\"><h3>",$row["name"],"</h3></a>";
-		echo $row["description"],"<br>";
+		echo "<td width=\"200\">";
+		echo "<a href=\"itempage.php?menunumber=",$row["menunumber"],"\"><svg height=\"50\"><text x=\"0\" y=\"24\" stroke-width=\"3\" font-weight=\"1000\" font-size=\"30\" stroke=\"black\" fill=\"cyan\">",$row["name"],"</text></svg></a>";
+
+		//shorten description if it's too long
+		if(strlen($row["description"])>100)
+		{
+			$short_description=substr($row["description"],0,100);
+			echo $short_description,"...<br>";
+		}
+		else
+			echo $row["description"],"<br>";
 
 		$price=sprintf('%0.2f', $row["price"]);
-		echo "price: €",$price;
+		echo "price: €",$price,"<br>";
+		echo "<br><a href=\"add2basket.php?menunumber=",$row["menunumber"],"&oppr=a\">add to basket</a>";
+
+		//display contents of basket
+		$item="food" . $row["menunumber"];
+		if($_SESSION[$item] != '')
+			echo " (",$_SESSION[$item],")";
+
 		echo "</td>";
 
-		echo "</tr>";
+		if($i%2==0)
+			echo "</tr>";
+		$i++;
 	}
+
+	if($i%2!=0)
+		echo "</tr>";
 
 	echo "</table>";
 
