@@ -9,7 +9,7 @@
 
 	//check they came from the sign-in.html or index page
 	if($username=='')
-		goback("access denied","/");
+		goback("access denied",$goto);
 
 	$sqlcode="select password from users where(username='$username')";
 

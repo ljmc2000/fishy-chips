@@ -1,5 +1,8 @@
 <?php
 	include 'functions.php';
+	if(!isset($_COOKIE["login_cookie"]))
+		goback("Please login","/");
+
 	$myconnection=database_connect();
 	$username=$myconnection->real_escape_string($_COOKIE["login_cookie"]);
 	$orderno=$myconnection->real_escape_string($_GET["ordernumber"]);

@@ -1,6 +1,8 @@
 <?php
 	include "functions.php";
 	$myconnection=database_connect();
+	if(!isset($_COOKIE["login_cookie"]))
+		goback("Please login","/");
 
 	$username=$myconnection->real_escape_string($_COOKIE['login_cookie']);
 	$cardnum=$myconnection->real_escape_string($_POST['cardnum']);

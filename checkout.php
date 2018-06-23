@@ -8,6 +8,9 @@
 	show_header();
 	echo "<main>";
 
+	if(!isset($_COOKIE["login_cookie"]))
+		goback("Please login","/");
+
 	$myconnection=database_connect();
 	$sqlcode="select * from food;";
 	$result=$myconnection->query($sqlcode);
