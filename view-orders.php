@@ -6,7 +6,7 @@
 	show_header();
 
 	$myconnection=database_connect();
-	$sqlcode="select username,items_ordered,placed,line1,line2,town,eircode from valid_orders where fulfilled=0;";
+	$sqlcode="select username,items_ordered,placed,line1,line2,town,eircode,orderno from valid_orders where fulfilled=0;";
 	$result=mysqli_query($myconnection,$sqlcode);
 
 	echo "<table align=\"center\">";

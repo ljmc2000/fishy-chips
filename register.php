@@ -4,7 +4,7 @@
 
 	if($_POST['password1']!=$_POST['password2'])
 	{
-		goback("passwords don't match","sign-in.html");
+		goback("passwords don't match","create-account.php");
 	}
 
 	$myconnection=database_connect();
@@ -18,12 +18,12 @@
 		goback("access denied","/");
 
 	//check for pre existing user
-	$sqlcode="select username from users where username='$username';";
+	$sqlcode="select username from users where username like '$username';";
 	$result=$myconnection->query($sqlcode);
 	$username2=$result->fetch_assoc()["username"];
 
-	if($username2==$username)
-		goback("pre-existing user found","sign-in.html");
+	if($username2!=='')
+		goback("pre-existing user found","create-account.php");
 
 	//add user to database
 	$sqlcode="insert into users values('$username','$password')";

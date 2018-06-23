@@ -11,7 +11,7 @@
 	if($username=='')
 		goback("access denied",$goto);
 
-	$sqlcode="select password from users where(username='$username')";
+	$sqlcode="select password from users where(username= BINARY '$username')";
 
 	$result=$myconnection->query($sqlcode);
 	$row=$result->fetch_assoc();
