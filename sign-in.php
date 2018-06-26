@@ -21,21 +21,41 @@
 
 	$myconnection->close();
 
-	if($password1 == $password2)
+	if(substr($password2, 0, 3) == "\$2b")
 	{
-		$cookie_name = "login_cookie";
-		$cookie_value = $username;
-		setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
+		if(password_verify($_POST['password1'],$password2))
+		{
+			$cookie_name = "login_cookie";
+			$cookie_value = $username;
+			setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 
-		goback("login sucess",$goto);
-	}
-	else if($password2=="")
-	{
-		goback("user not found: please register",$goto);
+			goback("login sucess",$goto);
+		}
+
+		else
+		{
+			goback("incorrect password",$goto);
+		}
 	}
 
 	else
 	{
-		goback("incorrect password",$goto);
+		if($password1 == $password2)
+		{
+			$cookie_name = "login_cookie";
+			$cookie_value = $username;
+			setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
+
+			goback("login sucess",$goto);
+		}
+		else if($password2=="")
+		{
+			goback("user not found: please register",$goto);
+		}
+
+		else
+		{
+			goback("incorrect password",$goto);
+		}
 	}
 ?>
