@@ -18,10 +18,24 @@
 	$sqlcode->execute();
 	$result=$sqlcode->get_result();
 	$row=$result->fetch_assoc();
-	$oldpwd=hash('sha256',$_POST['oldpwd']);
-	if($oldpwd!=$row["password"])
+
+	if(substr($row["password"], 0, 3) == "\$2b")
 	{
-		goback("wrong original password",$_SERVER['HTTP_REFERER']);
+		if( !password_verify($_POST['oldpwd'],$row['password']) )
+		{
+			goback("wrong original password",$_SERVER['HTTP_REFERER']);
+			die();
+		}
+	}
+
+	else
+	{
+		$oldpwd=hash('sha256',$_POST['oldpwd']);
+		if($oldpwd!=$row["password"])
+		{
+			goback("wrong original password",$_SERVER['HTTP_REFERER']);
+			die();
+		}
 	}
 
 	//update password
